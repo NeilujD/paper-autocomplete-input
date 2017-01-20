@@ -1,0 +1,67 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+
+By default the paper-autocomplete-item would look like that:
+
+    <paper-item>
+        [[getItemString(item)]]
+    </paper-item>
+
+-->
+
+<dom-module id="paper-autocomplete-item">
+</dom-module>
+
+<script>
+  Polymer({
+
+    is: 'paper-autocomplete-item',
+
+    behaviors: [Polymer.Templatizer],
+
+    properties: {
+        /**
+         * `template` is the html item template (see on top to see the default value)
+         *
+         * @type Object
+         */
+        template: Object,
+        _instance: {
+            type: Object,
+            computed: "_templatize(template)"
+        },
+
+        /**
+         * `item` is the item instance from the list
+         *
+         * @type Object
+         */
+        item: Object,
+
+        /**
+         * `index` is the item index from the list
+         *
+         * @type Number
+         */
+        index: Number
+    },
+
+    observers: [
+        "_onItemChange(_instance, item, index)"
+    ],
+
+    _templatize: function (n, o) {
+        this.templatize(this.template);
+        var instance = this.stamp({});
+        Polymer.dom(this).insertBefore(instance.root, Polymer.dom(this).firstElementChild);
+        return instance;
+    },
+
+    _onItemChange: function (_instance, item, index) {
+        this._instance.item = item;
+        this._instance.index = index;
+    }
+
+  });
+</script>

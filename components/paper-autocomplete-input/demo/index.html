@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>paper-autocomplete-input demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../paper-autocomplete-input.html">
+
+    <link rel="import" href="../../paper-item/paper-item.html">
+    <link rel="import" href="../../paper-item/paper-item-body.html">
+    <link rel="import" href="../../iron-icon/iron-icon.html">
+    <link rel="import" href="../../iron-icons/iron-icons.html">
+
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic paper-autocomplete-input demo</h3>
+      <demo-snippet>
+        <template>
+          <paper-autocomplete-input
+              id="ironFormElementDemo"
+              autoc-url="data.json"
+              label="Autocompletion test"
+              autoc-fields='["autoc_field"]'
+              name="test"
+              required
+              error-message="This field is required !">
+            <template>
+              <paper-item>
+                <paper-item-body two-line>
+                  <div>[[item.autoc_field]] - [[item.name]]</div>
+                  <div secondary>This is the number [[index]]</div>
+                </paper-item-body>
+                <iron-icon icon="perm-identity"></iron-icon>
+              </paper-item>
+            </template>
+          </paper-autocomplete-input>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>
