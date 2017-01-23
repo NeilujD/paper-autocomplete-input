@@ -52,6 +52,7 @@ By default the paper-autocomplete-item would look like that:
     ],
 
     _templatize: function (n, o) {
+        this.dataHost = this.template._rootDataHost;
         this.templatize(this.template);
         var instance = this.stamp({});
         Polymer.dom(this).insertBefore(instance.root, Polymer.dom(this).firstElementChild);
