@@ -74,8 +74,8 @@ Custom property | Description | Default
 `--paper-autocomplete-input-list-margin-top` | Margin top from the item list | 2px
 `--paper-autocomplete-item` | Mixin for the item | {}
 
-@group CirruseoElements
-@demo
+@group Paper Elements
+@demo demo/index.html
 @element paper-autocomplete-input
 -->
 <dom-module id="paper-autocomplete-input">
@@ -184,7 +184,7 @@ Custom property | Description | Default
       </template>
 
       <div id="itemListDiv">
-        <paper-progress indeterminate="[[suggestionsLoading]]"></paper-progress>
+        <paper-progress indeterminate="[[suggestionsLoading]]" hidden$="[[hideLoadingBar]]"></paper-progress>
         <paper-material hidden="[[ _hideResults ]]" elevation="3">
           <template id="itemListTemplate" is="dom-repeat" items="[[ filteredItems ]]">
             <paper-autocomplete-item
@@ -346,6 +346,18 @@ Custom property | Description | Default
             return template;
           }
         }
+      },
+
+      /**
+       * permit to hide the loading bar
+       *
+       * @type Boolean
+       * @default false
+       */
+      hideLoadingBar: {
+        type: Boolean,
+        value: false,
+        notify: true
       }
     },
 
