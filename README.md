@@ -1,3 +1,5 @@
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/NeilujD/paper-autocomplete-input)
+
 [Demo and API Docs](https://neilujd.github.io/paper-autocomplete-input)
 
 # \<paper-autocomplete-input\>
