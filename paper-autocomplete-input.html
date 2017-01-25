@@ -335,16 +335,17 @@ Custom property | Description | Default
         type: Object,
         readOnly: true,
         value: function() {
-          var template = Polymer.dom(this).querySelector('template:not([is=default])') || this.$.defaultTemplate;
+          var template = Polymer.dom(this).querySelector('template:not(#defaultTemplate)');
+          var dataHost = this.dataHost;
 
-          if (template) {
-            if (this.dataHost) {
-              // set dataHost to the context where template has been defined
-              template._rootDataHost = this.dataHost._rootDataHost || this.dataHost;
-            }
-
-            return template;
+          if (!template) {
+              template = this.$.defaultTemplate;
+              dataHost = this;
           }
+
+          template._rootDataHost = dataHost;
+
+          return template;
         }
       },
 
@@ -373,38 +374,11 @@ Custom property | Description | Default
       var r = RegExp(this.value, 'i');
 
       var filteredItems = this.items.filter(function(item) {
-        var item_string = that._getItemString(item);
+        var item_string = that.getItemString(item);
         return r.test(item_string);
       });
 
       return filteredItems;
-    },
-
-    /**
-     * The `_getItemString` is used to get the string to display from an item.
-     *
-     * @param {Object} item
-     * @return {String}
-     */
-    _getItemString: function (item) {
-      if (!this.autocFields) {
-        return null;
-      }
-      if (!item) {
-        return null;
-      }
-      var item_string = "";
-      for (var i = 0; i < this.autocFields.length; i++) {
-        if (!item[this.autocFields[i]]) {
-
-          continue;
-        }
-        item_string += item[this.autocFields[i]];
-        if (i < this.autocFields.length - 1 && item[this.autocFields[i + 1]]) {
-          item_string += " - ";
-        }
-      }
-      return item_string;
     },
 
     /**
@@ -486,7 +460,7 @@ Custom property | Description | Default
      * The `_onSelectedItemChange` is used when the selected item change.
      */
     _onSelectedItemChange: function (n, o) {
-      this.value = this._getItemString(n);
+      this.value = this.getItemString(n);
       if (!n) {
         return;
       }
@@ -511,8 +485,8 @@ Custom property | Description | Default
       }
       var that = this;
       this.set("items", this.items.sort(function (item1, item2) {
-        var item1_string = that._getItemString(item1);
-        var item2_string = that._getItemString(item2);
+        var item1_string = that.getItemString(item1);
+        var item2_string = that.getItemString(item2);
         if (item1_string < item2_string) {
           return -1;
         }
@@ -578,7 +552,7 @@ Custom property | Description | Default
      * The `cancelTyping` method permit to cancel the current typing action.
      */
     cancelTyping: function () {
-      this.value = this._getItemString(this.selectedItem);
+      this.value = this.getItemString(this.selectedItem);
       this._hideResults = true;
       this.fire("typing-cancelled", this.value);
     },
