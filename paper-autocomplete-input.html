@@ -359,6 +359,24 @@ Custom property | Description | Default
         type: Boolean,
         value: false,
         notify: true
+      },
+
+      /**
+       * start the request after a timeout of non user activity in the input
+       */
+      timeout: {
+          type: Number,
+          value: 0
+      },
+
+      _timeout: Number,
+
+      /**
+       * `firstRequestStart` is the character's count after the first request is started
+       */
+      firstRequestStart: {
+          type: Number,
+          value: 0
       }
     },
 
@@ -412,6 +430,18 @@ Custom property | Description | Default
       }
       if (e.keyCode == 27) {
         this.$$("input").blur();
+        return;
+      }
+
+      if (this.value.length < this.firstRequestStart) return;
+
+      var that = this;
+
+      if (this.timeout > 0) {
+        clearTimeout(this._timeout);
+        this._timeout = setTimeout(function () {
+          that.loadList();
+        }, this.timeout);
         return;
       }
 
