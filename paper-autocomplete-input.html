@@ -73,6 +73,7 @@ Custom property | Description | Default
 ----------------|-------------|----------
 `--paper-autocomplete-input-list-margin-top` | Margin top from the item list | 2px
 `--paper-autocomplete-item` | Mixin for the item | {}
+`--paper-autocomplete-input-list-background` | List background | white
 
 @group Paper Elements
 @demo demo/index.html
@@ -116,9 +117,12 @@ Custom property | Description | Default
       overflow: visible;
       -webkit-overflow-scrolling: touch;
       border-radius: 0 0 2px 2px;
+      width: 100%;
+      background: var(--paper-autocomplete-input-list-background, white);
     }
     paper-progress {
       width: 100%;
+      position: absolute;
     }
   </style>
 
@@ -185,7 +189,9 @@ Custom property | Description | Default
       </template>
 
       <div id="itemListDiv">
-        <paper-progress indeterminate="[[suggestionsLoading]]" hidden$="[[hideLoadingBar]]"></paper-progress>
+        <template is="dom-if" if="[[!hideLoadingBar]]">
+          <paper-progress indeterminate="[[suggestionsLoading]]" hidden$="[[!suggestionsLoading]]"></paper-progress>
+        </template>
         <paper-material hidden="[[ _hideResults ]]" elevation="3">
           <template id="itemListTemplate" is="dom-repeat" items="[[ filteredItems ]]">
             <paper-autocomplete-item
@@ -324,7 +330,10 @@ Custom property | Description | Default
        * @type Boolean
        * @readOnly
        */
-      suggestionsLoading: Boolean,
+      suggestionsLoading: {
+        type: Boolean,
+        value: false
+      },
 
       /**
        * Template for the autocomplete item
