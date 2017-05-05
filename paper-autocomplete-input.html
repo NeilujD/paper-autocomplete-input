@@ -501,12 +501,11 @@ Custom property | Description | Default
      */
     _onSelectedItemChange: function (n, o) {
       this.value = this.getItemString(n);
-      if (!n) {
-        return;
-      }
-      this._hideResults = true;
-      this.$$("input").blur();
-      this.set('items', null);
+      if (n) {
+        this._hideResults = true;
+        this.$$("input").blur();
+        this.set('items', null);
+      }      
       this.fire("item-selected", n);
     },
 
