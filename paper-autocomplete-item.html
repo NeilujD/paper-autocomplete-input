@@ -52,6 +52,7 @@ By default the paper-autocomplete-item would look like that:
     ],
 
     _templatize: function (n, o) {
+        // if (this.template.__templatizeOwner) return;
         this.dataHost = this.template._rootDataHost;
         this.templatize(this.template);
         var instance = this.stamp({});
@@ -60,6 +61,7 @@ By default the paper-autocomplete-item would look like that:
     },
 
     _onItemChange: function (_instance, item, index) {
+        if (_instance === undefined || item === undefined || index === undefined) return;
         this._instance.item = item;
         this._instance.index = index;
     }
