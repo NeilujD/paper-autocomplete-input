@@ -2,8 +2,7 @@
 
 <link rel="import" href="../paper-material/paper-material.html">
 <link rel="import" href="../paper-input/paper-input-behavior.html">
-<link rel="import" href="../paper-input/paper-input-container.html">
-<link rel="import" href="../paper-input/paper-input-error.html">
+<link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../paper-progress/paper-progress.html">
 <link rel="import" href="../paper-item/paper-item.html">
 
@@ -80,130 +79,114 @@ Custom property | Description | Default
 @element paper-autocomplete-input
 -->
 <dom-module id="paper-autocomplete-input">
-
-  <style>
-    :host {
-      display: block;
-    }
-    paper-autocomplete-item {
-      cursor: pointer;
-      position: relative;
-      background-color: white;
-      @apply(--paper-autocomplete-item);
-    }
-    paper-autocomplete-item:not(:last-of-type) {
-      border-bottom: solid 1px var(--divider-color);
-    }
-    paper-autocomplete-item:last-of-type {
-      border-radius: 0 0 2px 2px;
-    }
-    paper-autocomplete-item:focus:before {
-      display: none;
-    }
-    paper-autocomplete-item.selected {
-      background-color: var(--divider-color);
-    }
-    #itemListDiv {
-      overflow: visible;
-      -webkit-overflow-scrolling: touch;
-      position: absolute;
-      min-width: 100%;
-      left: 0;
-      margin-top: var(--paper-autocomplete-input-list-margin-top, 2px);
-      background-color: white;
-      z-index: 10;
-    }
-    #itemListDiv paper-material {
-      overflow: visible;
-      -webkit-overflow-scrolling: touch;
-      border-radius: 0 0 2px 2px;
-      width: 100%;
-      background: var(--paper-autocomplete-input-list-background, white);
-    }
-    paper-progress {
-      width: 100%;
-      position: absolute;
-    }
-  </style>
-
   <template>
+    <style>
+      :host {
+        display: block;
+        position: relative;
+      }
+      paper-input {
+        width: 100%;
+        --paper-input-container: {
+          padding-bottom: 0;
+        };
+      }
+      paper-autocomplete-item {
+        cursor: pointer;
+        position: relative;
+        background-color: white;
+        @apply --paper-autocomplete-item;
+      }
+      paper-autocomplete-item:not(:last-of-type) {
+        border-bottom: solid 1px var(--divider-color);
+      }
+      paper-autocomplete-item:last-of-type {
+        border-radius: 0 0 2px 2px;
+      }
+      paper-autocomplete-item:focus:before {
+        display: none;
+      }
+      paper-autocomplete-item.selected {
+        background-color: var(--divider-color);
+      }
+      [hidden] {
+        display: none !important;
+      }
+      #itemListDiv {
+        overflow: visible;
+        -webkit-overflow-scrolling: touch;
+        position: absolute;
+        min-width: 100%;
+        left: 0;
+        margin-top: var(--paper-autocomplete-input-list-margin-top, 2px);
+        background-color: white;
+        z-index: 10;
+      }
+      #itemListDiv div {
+        width: 100%;
+      }
+      #itemListDiv div paper-material {
+        overflow: visible;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 0 0 2px 2px;
+        background: var(--paper-autocomplete-input-list-background, white);
+        width: 100%;
+      }
+      paper-progress {
+        width: 100%;
+        position: absolute;
+      }
+    </style>
+
     <iron-ajax
-        id="getAutocItemsRequest"
-        url="{{ autocUrl }}"
-        loading="{{suggestionsLoading}}"
-        last-response="{{ items }}"
-        on-response="_onAutocItemsResponse"></iron-ajax>
+      id="getAutocItemsRequest"
+      url="{{ autocUrl }}"
+      loading="{{suggestionsLoading}}"
+      last-response="{{ items }}"
+      on-response="_onAutocItemsResponse"></iron-ajax>
 
-    <paper-input-container
-      disabled$="[[disabled]]"
-      no-label-float="[[ noLabelFloat ]]"
-      always-float-label="[[ alwaysFloatLabel ]]"
-      invalid="[[invalid]]">
+    <paper-input
+      id="input"
+      label="[[label]]"
+      value="{{value}}"
+      disabled="[[disabled]]"
+      invalid="{{invalid}}"
+      allowed-pattern="[[allowedPattern]]"
+      type="[[type]]"
+      pattern="[[pattern]]"
+      required="[[required]]"
+      error-message="[[errorMessage]]"
+      char-counter="[[charCounter]]"
+      no-label-float="[[noLabelFloat]]"
+      always-float-label="[[alwaysFloatLabel]]"
+      autoValidate="[[autoValidate]]"
+      validator="[[validator]]"
+      autofocus="[[autofocus]]"
+      inputmode="[[inputmode]]"
+      name="[[name]]"
+      placeholder="[[placeholder]]"
+      readonly="[[readonly]]"
+      on-keyup="_onKeyUp"
+      on-focusout="_onFocusOut"
+      focused="{{_focused}}"></paper-input>
 
-      <label hidden$="[[ !label ]]">[[ label ]]</label>
-
-      <content select="[ prefix ]"></content>
-
-      <input id="input" is="iron-input"
-             aria-labelledby$="[[ _ariaLabelledBy ]]"
-             aria-describedby$="[[ _ariaDescribedBy ]]"
-             disabled$="[[ disabled ]]"
-             title$="[[ title ]]"
-             bind-value="{{ value }}"
-             invalid="{{ invalid }}"
-             prevent-invalid-input="[[ preventInvalidInput ]]"
-             allowed-pattern="[[ allowedPattern ]]"
-             validator="[[ validator ]]"
-             type$="[[ type ]]"
-             pattern$="[[ pattern ]]"
-             required$="[[ required ]]"
-             autocomplete$="[[ autocomplete ]]"
-             autofocus$="[[ autofocus ]]"
-             inputmode$="[[ inputmode ]]"
-             minlength$="[[ minlength ]]"
-             maxlength$="[[ maxlength ]]"
-             min$="[[ min ]]"
-             max$="[[ max ]]"
-             step$="[[ step ]]"
-             name$="[[ name ]]"
-             placeholder$="[[ placeholder ]]"
-             readonly$="[[ readonly ]]"
-             list$="[[ list ]]"
-             size$="[[ size ]]"
-             autocapitalize$="[[ autocapitalize ]]"
-             autocorrect$="[[ autocorrect ]]"
-             on-change="_onChange"
-             tabindex$="[[ tabindex ]]"
-             autosave$="[[ autosave ]]"
-             results$="[[ results ]]"
-             accept$="[[ accept ]]"
-             multiple$="[[ multiple ]]"
-             on-keyup="_onKeyUp"
-             on-focusout="_onFocusOut"
-             on-focusin="_onFocusIn">
-
-      <content select="[ suffix ]"></content>
-
-      <template is="dom-if" if="[[ errorMessage ]]">
-        <paper-input-error>[[ errorMessage ]]</paper-input-error>
+    <div id="itemListDiv">
+      <template is="dom-if" if="[[!hideLoadingBar]]">
+        <paper-progress indeterminate="[[suggestionsLoading]]" hidden="[[!suggestionsLoading]]"></paper-progress>
       </template>
-
-      <div id="itemListDiv">
-        <template is="dom-if" if="[[!hideLoadingBar]]">
-          <paper-progress indeterminate="[[suggestionsLoading]]" hidden$="[[!suggestionsLoading]]"></paper-progress>
-        </template>
-        <paper-material hidden="[[ _hideResults ]]" elevation="3">
+      <div>
+        <paper-material elevation="3" hidden="[[ _hideResults ]]">
           <template id="itemListTemplate" is="dom-repeat" items="[[ filteredItems ]]">
             <paper-autocomplete-item
-                on-tap="_onItemTap"
-                class$="[[ _isKeySelectedItemClass(item, _keySelectedItem) ]]"
-                template="[[itemTemplate]]"
-                item="[[item]]"
-                index="[[index]]"></paper-autocomplete-item>
+              on-tap="_onItemTap"
+              class$="[[ _isKeySelectedItemClass(item, _keySelectedItem) ]]"
+              template-class="[[_itemTemplateClass]]"
+              item="[[item]]"
+              index="[[index]]"></paper-autocomplete-item>
           </template>
         </paper-material>
       </div>
-    </paper-input-container>
+    </div>
 
     <template id="defaultTemplate">
       <paper-item>
@@ -220,8 +203,7 @@ Custom property | Description | Default
     is: 'paper-autocomplete-input',
 
     behaviors: [
-      Polymer.PaperInputBehavior,
-      Polymer.IronFormElementBehavior
+        Polymer.IronFormElementBehavior
     ],
 
     properties: {
@@ -321,7 +303,8 @@ Custom property | Description | Default
        */
       _focused: {
         type: Boolean,
-        value: false
+        value: false,
+        observer: "_onFocusedChanged"
       },
 
       /**
@@ -341,21 +324,19 @@ Custom property | Description | Default
        * @type Object
        * @readOnly
        */
-      itemTemplate: {
+      _itemTemplateClass: {
         type: Object,
         readOnly: true,
         value: function() {
           var template = Polymer.dom(this).querySelector('template:not(#defaultTemplate)');
-          var dataHost = this.dataHost;
+          var dataHost = this.parentNode;
 
           if (!template) {
               template = this.$.defaultTemplate;
               dataHost = this;
           }
 
-          template._rootDataHost = dataHost;
-
-          return template;
+          return Polymer.Templatize.templatize(template, dataHost);
         }
       },
 
@@ -391,7 +372,7 @@ Custom property | Description | Default
     },
 
     _onItemTap: function (e, detail) {
-      this.set('selectedItem', this.$.itemListTemplate.itemForElement(e.target));
+      this.set('selectedItem', e.model.item);
     },
 
     /**
@@ -439,9 +420,11 @@ Custom property | Description | Default
         return;
       }
       if (e.keyCode == 27) {
-        this.$$("input").blur();
+        this.$.input.blur();
         return;
       }
+
+      if (!this.value) return;
 
       if (this.value.length < this.firstRequestStart) return;
 
@@ -500,12 +483,13 @@ Custom property | Description | Default
      * The `_onSelectedItemChange` is used when the selected item change.
      */
     _onSelectedItemChange: function (n, o) {
+      if (n === undefined) return;
       this.value = this.getItemString(n);
       if (n) {
         this._hideResults = true;
-        this.$$("input").blur();
+        this.$.input.blur();
         this.set('items', null);
-      }      
+      }
       this.fire("item-selected", n);
     },
 
@@ -518,7 +502,7 @@ Custom property | Description | Default
     /**
      * The `_onItemsChange` the item list is sorted and the filtered items is set.
      */
-    _onItemsChange: function () {
+    _onItemsChange: function (n, o) {
       if (!this.items) {
         return;
       }
@@ -550,22 +534,21 @@ Custom property | Description | Default
      * The `_onFocusOut` is used when the user leaves the focus.
      */
     _onFocusOut: function (e) {
-      if (e.relatedTarget && e.relatedTarget.nodeName === this.itemTemplate._content.firstElementChild.nodeName) {
+      if (e.relatedTarget && e.relatedTarget.nodeName === this.itemTemplate.content.firstElementChild.nodeName) {
         e.preventDefault();
         return false;
       }
       if (this.value === "" || this.value === null) {
         this.selectedItem = null;
       }
-      this._focused = false;
+
       this.cancelTyping();
     },
 
-    /**
-     * The `_onFocusIn` is used when the user enter the focus.
-     */
-    _onFocusIn: function (e) {
-      this._focused = true;
+    _onFocusedChanged: function (n, o) {
+      if (!n) {
+        return;
+      }
 
       if (!this.displayListOnFocus) {
         return;
@@ -623,6 +606,8 @@ Custom property | Description | Default
     },
 
     _onHideResultsChange: function (n, o) {
+      console.log()
+      if (n === undefined) return;
       if (n) {
         return;
       }
