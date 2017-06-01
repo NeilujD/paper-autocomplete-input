@@ -109,6 +109,9 @@ Custom property | Description | Default
       paper-autocomplete-item.selected {
         background-color: var(--divider-color);
       }
+      [hidden] {
+        display: none !important;
+      }
       #itemListDiv {
         overflow: visible;
         -webkit-overflow-scrolling: touch;
@@ -165,11 +168,11 @@ Custom property | Description | Default
       readonly="[[readonly]]"
       on-keyup="_onKeyUp"
       on-focusout="_onFocusOut"
-      on-focusin="_onFocusIn"></paper-input>
+      focused="{{_focused}}"></paper-input>
 
     <div id="itemListDiv">
       <template is="dom-if" if="[[!hideLoadingBar]]">
-        <paper-progress indeterminate="[[suggestionsLoading]]" hidden$="[[!suggestionsLoading]]"></paper-progress>
+        <paper-progress indeterminate="[[suggestionsLoading]]" hidden="[[!suggestionsLoading]]"></paper-progress>
       </template>
       <div>
         <paper-material elevation="3" hidden="[[ _hideResults ]]">
@@ -200,7 +203,6 @@ Custom property | Description | Default
     is: 'paper-autocomplete-input',
 
     behaviors: [
-        Polymer.PaperInputBehavior,
         Polymer.IronFormElementBehavior
     ],
 
@@ -301,7 +303,8 @@ Custom property | Description | Default
        */
       _focused: {
         type: Boolean,
-        value: false
+        value: false,
+        observer: "_onFocusedChanged"
       },
 
       /**
@@ -538,15 +541,14 @@ Custom property | Description | Default
       if (this.value === "" || this.value === null) {
         this.selectedItem = null;
       }
-      this._focused = false;
+
       this.cancelTyping();
     },
 
-    /**
-     * The `_onFocusIn` is used when the user enter the focus.
-     */
-    _onFocusIn: function (e) {
-      this._focused = true;
+    _onFocusedChanged: function (n, o) {
+      if (!n) {
+        return;
+      }
 
       if (!this.displayListOnFocus) {
         return;
