@@ -177,7 +177,7 @@ Custom property | Description | Default
             <paper-autocomplete-item
               on-tap="_onItemTap"
               class$="[[ _isKeySelectedItemClass(item, _keySelectedItem) ]]"
-              template="[[itemTemplate]]"
+              template-class="[[_itemTemplateClass]]"
               item="[[item]]"
               index="[[index]]"></paper-autocomplete-item>
           </template>
@@ -321,21 +321,19 @@ Custom property | Description | Default
        * @type Object
        * @readOnly
        */
-      itemTemplate: {
+      _itemTemplateClass: {
         type: Object,
         readOnly: true,
         value: function() {
           var template = Polymer.dom(this).querySelector('template:not(#defaultTemplate)');
-          var dataHost = this.dataHost;
+          var dataHost = this.parentNode;
 
           if (!template) {
               template = this.$.defaultTemplate;
               dataHost = this;
           }
 
-          template._rootDataHost = dataHost;
-
-          return template;
+          return Polymer.Templatize.templatize(template, dataHost);
         }
       },
 
@@ -606,7 +604,7 @@ Custom property | Description | Default
     },
 
     _onHideResultsChange: function (n, o) {
-      console.log(n);
+      console.log()
       if (n === undefined) return;
       if (n) {
         return;
