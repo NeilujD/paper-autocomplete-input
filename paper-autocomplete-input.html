@@ -168,7 +168,10 @@ Custom property | Description | Default
       readonly="[[readonly]]"
       on-keyup="_onKeyUp"
       on-focusout="_onFocusOut"
-      focused="{{_focused}}"></paper-input>
+      focused="{{_focused}}">
+      <slot name="prefix" slot="prefix"></slot>
+      <slot name="suffix" slot="suffix"></slot>
+    </paper-input>
 
     <div id="itemListDiv">
       <template is="dom-if" if="[[!hideLoadingBar]]">
