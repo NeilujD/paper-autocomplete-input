@@ -11,7 +11,7 @@
     "polymer",
     "paper-input",
     "autocompletion",
-    "cirruseo"
+    "cirruseo",
     "polymer2"
   ],
   "repository": {
