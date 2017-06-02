@@ -530,6 +530,8 @@ Custom property | Description | Default
         value: false
       },
 
+      _itemTemplate: Object,
+
       /**
        * Template for the autocomplete item
        *
@@ -578,6 +580,7 @@ Custom property | Description | Default
           dataHost = this;
       }
 
+      this.set("_itemTemplate", template);
       this.set("_itemTemplateClass", Polymer.Templatize.templatize(template, dataHost));
     },
 
@@ -744,7 +747,7 @@ Custom property | Description | Default
      * The `_onFocusOut` is used when the user leaves the focus.
      */
     _onFocusOut: function (e) {
-      if (e.relatedTarget && e.relatedTarget.nodeName === this.itemTemplate.content.firstElementChild.nodeName) {
+      if (e.relatedTarget && e.relatedTarget.nodeName === this._itemTemplate.content.firstElementChild.nodeName) {
         e.preventDefault();
         return false;
       }
