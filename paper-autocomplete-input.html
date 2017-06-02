@@ -536,21 +536,7 @@ Custom property | Description | Default
        * @type Object
        * @readOnly
        */
-      _itemTemplateClass: {
-        type: Object,
-        readOnly: true,
-        value: function() {
-          var template = Polymer.dom(this).querySelector('template:not(#defaultTemplate)');
-          var dataHost = this.parentNode;
-
-          if (!template) {
-              template = this.$.defaultTemplate;
-              dataHost = this;
-          }
-
-          return Polymer.Templatize.templatize(template, dataHost);
-        }
-      },
+      _itemTemplateClass: Object,
 
       /**
        * permit to hide the loading bar
@@ -581,6 +567,18 @@ Custom property | Description | Default
           type: Number,
           value: 0
       }
+    },
+
+    ready: function () {
+      var template = Polymer.dom(this).querySelector('template:not(#defaultTemplate)');
+      var dataHost = this.parentNode;
+
+      if (!template) {
+          template = this.$.defaultTemplate;
+          dataHost = this;
+      }
+
+      this.set("_itemTemplateClass", Polymer.Templatize.templatize(template, dataHost));
     },
 
     _onItemTap: function (e, detail) {
@@ -635,6 +633,8 @@ Custom property | Description | Default
         this.$.input.blur();
         return;
       }
+
+      this.value = this.value || "";
 
       if (this.value.length < this.firstRequestStart) return;
 
