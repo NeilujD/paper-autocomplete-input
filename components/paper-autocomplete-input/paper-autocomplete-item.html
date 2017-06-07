@@ -22,15 +22,15 @@ By default the paper-autocomplete-item would look like that:
 
     properties: {
         /**
-         * `template` is the html item template (see on top to see the default value)
+         * `templateClass` is the template class you obtain with this line: `Polymer.Templatize.templatize(template, dataHost);`
          *
          * @type Object
          */
-        template: Object,
-        _instance: {
-            type: Object,
-            computed: "_templatize(template)"
+        templateClass: {
+          type: Object,
+          observer: "_templatize"
         },
+        _instance: Object,
 
         /**
          * `item` is the item instance from the list
@@ -52,13 +52,16 @@ By default the paper-autocomplete-item would look like that:
     ],
 
     _templatize: function (n, o) {
-        this.templatize(this.template);
-        var instance = this.stamp({});
-        Polymer.dom(this).insertBefore(instance.root, Polymer.dom(this).firstElementChild);
-        return instance;
+        if (this._instance) return;
+
+        let instance = new this.templateClass({});
+        Polymer.dom(this).appendChild(instance.root);
+
+        this.set("_instance", instance);
     },
 
     _onItemChange: function (_instance, item, index) {
+        if (_instance === undefined || item === undefined || index === undefined) return;
         this._instance.item = item;
         this._instance.index = index;
     }

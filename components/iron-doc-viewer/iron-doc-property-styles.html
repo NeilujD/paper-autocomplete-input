@@ -9,12 +9,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../paper-styles/typography.html">
+<link rel="import" href="../paper-styles/color.html">
+
+<!--
+### Styling
+
+The following custom properties and mixins are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--iron-doc-viewer-property-deeplink-color` | Text color of clickable properties and events names | `currentcolor`
+`--iron-doc-viewer-property-deeplink-color-hover` | Text hover color of properties and events names | `--paper-pink-500`
+`--iron-doc-viewer-property-signature-color` | Text color of properties and events names | `black`
+`--iron-doc-viewer-property-annotation-color` | Text color of annotations | `--paper-grey-700`
+`--iron-doc-viewer-property-default-value-color` | Text color of default value | `--paper-grey-500`
+`--iron-doc-viewer-property-markdown-link-color` | Text color of markdown links in desc | `--paper-indigo-a200`
+`--iron-doc-viewer-property-meta-color` | Text color of meta types | `--paper-blue-500`
+
+-->
+
 
 <dom-module id="iron-doc-property-styles">
   <template>
     <style>
       :host {
-        @apply(--paper-font-body1);
+        @apply --paper-font-body1;
 
         box-sizing: border-box;
         display: block;
@@ -31,26 +50,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .deeplink {
-        color: currentcolor;
+        color: var(--iron-doc-viewer-property-deeplink-color, currentcolor);
         text-decoration: none;
       }
 
       .deeplink:hover {
-        color: var(--paper-pink-500);
+        color: var(--iron-doc-viewer-property-deeplink-color-hover, var(--paper-pink-500));
       }
 
       #signature {
-        @apply(--paper-font-code1);
+        @apply --paper-font-code1;
 
         float: left;
         overflow: hidden;
         text-overflow: ellipsis;
         width: 260px;
-        color: black;
+        color: var(--iron-doc-viewer-property-signature-color, black);
       }
 
       #signature .name {
-        @apply(--paper-font-code2);
+        @apply --paper-font-code2;
       }
 
       :host([function]) #signature {
@@ -75,13 +94,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       /* Metadata */
 
       #type {
-        @apply(--paper-font-code1);
+        @apply --paper-font-code1;
 
         font-style: italic;
       }
 
       .annotation {
-        color: #666;
+        color: var(--iron-doc-viewer-property-annotation-color, var(--paper-grey-700));
         float: right;
       }
 
@@ -94,7 +113,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       #default .value {
-        color: #999;
+        color: var(--iron-doc-viewer-property-default-value-color, var(--paper-grey-500));
         font-size: 12px;
       }
 
@@ -107,7 +126,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       #params .type {
-        @apply(--paper-font-code1);
+        @apply --paper-font-code1;
       }
 
       #params li {
@@ -146,7 +165,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       #desc .markdown-html code {
-        @apply(--paper-font-code1);
+        @apply --paper-font-code1;
+      }
+
+      #desc .markdown-html a {
+        color: var(--iron-doc-viewer-property-markdown-link-color, var(--paper-indigo-200));
+        text-decoration: none;
       }
 
       .return {
@@ -160,7 +184,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
       #meta {
         transition: opacity ease-in-out 150ms;
-        color: var(--paper-blue-500);
+        color: var(--iron-doc-viewer-property-meta-color, var(--paper-blue-500));
       }
       #desc {
         transition: transform ease-in-out 150ms, opacity  ease-in-out 150ms;

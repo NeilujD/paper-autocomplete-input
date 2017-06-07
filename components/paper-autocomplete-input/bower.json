@@ -1,6 +1,6 @@
 {
   "name": "paper-autocomplete-input",
-  "version": "1.0.0",
+  "version": "2.0.5",
   "authors": [
     "Julien Collard <julien.collard14@gmail.com> (http://neilujd.com)"
   ],
@@ -10,7 +10,9 @@
     "web-components",
     "polymer",
     "paper-input",
-    "autocompletion"
+    "autocompletion",
+    "cirruseo",
+    "polymer2"
   ],
   "repository": {
     "type": "git",
@@ -19,20 +21,21 @@
   "ignore": [],
   "main": "paper-autocomplete-input.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.4.0",
-    "paper-input": "PolymerElements/paper-input#^1.1.22",
-    "paper-progress": "PolymerElements/paper-progress#^1.0.11",
-    "iron-ajax": "PolymerElements/iron-ajax#^1.4.3",
-    "iron-input": "PolymerElements/iron-input#^1.0.10",
-    "iron-form-element-behavior": "PolymerElements/iron-form-element-behavior#^1.0.6",
-    "paper-item": "PolymerElements/paper-item#^1.2.1"
+    "polymer": "Polymer/polymer#^2.0.0",
+    "paper-input": "PolymerElements/paper-input#^2.0.0",
+    "paper-progress": "PolymerElements/paper-progress#^2.0.0",
+    "iron-ajax": "PolymerElements/iron-ajax#^2.0.0",
+    "iron-input": "PolymerElements/iron-input#^2.0.0",
+    "iron-form-element-behavior": "PolymerElements/iron-form-element-behavior#^2.0.0",
+    "paper-item": "PolymerElements/paper-item#^2.0.0",
+    "paper-material": "PolymerElements/paper-material#^2.0.0"
   },
   "devDependencies": {
-    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
-    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
-    "web-component-tester": "^4.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
-    "iron-icon": "PolymerElements/iron-icon#^1.0.12",
-    "iron-icons": "PolymerElements/iron-icons#^1.2.0"
+    "iron-component-page": "PolymerElements/iron-component-page#^2.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
+    "web-component-tester": "^6.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
+    "iron-icon": "PolymerElements/iron-icon#^2.0.0",
+    "iron-icons": "PolymerElements/iron-icons#^2.0.0"
   }
 }

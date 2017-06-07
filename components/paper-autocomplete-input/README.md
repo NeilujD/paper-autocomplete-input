@@ -1,6 +1,32 @@
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/NeilujD/paper-autocomplete-input)
+
+[Demo and API Docs](https://neilujd.github.io/paper-autocomplete-input)
+
 # \<paper-autocomplete-input\>
 
-paper-input with personalizable autocompletion feature
+paper-input with customizable autocompletion feature
+
+## Example
+
+<!---
+```
+<custom-element-demo>
+  <template>
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="paper-autocomplete-input.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
+```html
+<paper-autocomplete-input
+    id="ironFormElementDemo"
+    autoc-url="demo/data.json"
+    label="Autocompletion test"
+    autoc-fields='["autoc_field"]'>
+</paper-autocomplete-input>
+```
 
 ## Install the Polymer-CLI
 

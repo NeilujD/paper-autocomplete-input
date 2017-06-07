@@ -62,8 +62,13 @@ describe "Messages", ->
 
             expect(-> spyA.should.have.been.calledBefore(spyB)).to
                 .throw("expected spyA to have been called before function spyB() {}")
+            expect(-> spyA.should.have.been.calledImmediatelyBefore(spyB)).to
+                .throw("expected spyA to have been called immediately before function spyB() {}")
+
             expect(-> spyB.should.have.been.calledAfter(spyA)).to
                 .throw("expected spyB to have been called after function spyA() {}")
+            expect(-> spyB.should.have.been.calledImmediatelyAfter(spyA)).to
+                .throw("expected spyB to have been called immediately after function spyA() {}")
 
         it "should be correct for the negated cases", ->
             spyA = sinon.spy()
@@ -77,8 +82,13 @@ describe "Messages", ->
 
             expect(-> spyA.should.not.have.been.calledBefore(spyB)).to
                 .throw("expected spyA to not have been called before function spyB() {}")
+            expect(-> spyA.should.not.have.been.calledImmediatelyBefore(spyB)).to
+                .throw("expected spyA to not have been called immediately before function spyB() {}")
+
             expect(-> spyB.should.not.have.been.calledAfter(spyA)).to
                 .throw("expected spyB to not have been called after function spyA() {}")
+            expect(-> spyB.should.not.have.been.calledImmediatelyAfter(spyA)).to
+                .throw("expected spyB to not have been called immediately after function spyA() {}")
 
     describe "about call context", ->
         it "should be correct for the basic case", ->
@@ -187,17 +197,14 @@ describe "Messages", ->
             spy(1, 2, 3)
             spy("a", "b", "c")
 
-            expected = "expected spy to always have been called with arguments 1, 2, 3\n    spy(1, 2, 3)\n" +
-                "    spy(a, b, c)"
+            expected = /expected spy to always have been called with arguments 1, 2, 3/
             expect(-> spy.should.always.have.been.calledWith(1, 2, 3)).to.throw(expected)
 
-            expectedExactly = "expected spy to always have been called with exact arguments 1, 2, 3\n" +
-                "    spy(1, 2, 3)\n    spy(a, b, c)"
+            expectedExactly = /expected spy to always have been called with exact arguments 1, 2, 3/
             expect(-> spy.should.always.have.been.calledWithExactly(1, 2, 3)).to
                 .throw(expectedExactly)
 
-            expectedMatch = "expected spy to always have been called with arguments matching match(1)\n" +
-                "    spy(1, 2, 3)\n    spy(a, b, c)"
+            expectedMatch = /expected spy to always have been called with arguments matching match\(1\)/
             expect(-> spy.should.always.have.been.calledWithMatch(sinon.match(1))).to
                 .throw(expectedMatch)
 
