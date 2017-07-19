@@ -609,7 +609,6 @@ Custom property | Description | Default
      * @private
      */
     _onAutocItemsResponse: function () {
-      this._hideResults = !((this.value || this.displayListOnFocus) && this.focused);
       this.fire("autoc-items-change", this.items);
     },
 
@@ -642,6 +641,11 @@ Custom property | Description | Default
       if (this.value.length < this.firstRequestStart) return;
 
       var that = this;
+
+      if (!this.autocUrl) {
+        if (!!this.items) this._udpateFilteredItems();
+        return;
+      }
 
       if (this.timeout > 0) {
         clearTimeout(this._timeout);
@@ -701,7 +705,7 @@ Custom property | Description | Default
       if (n) {
         this._hideResults = true;
         this.$.input.blur();
-        this.set('items', null);
+        if (this.autocUrl) this.set('items', null);
       }
       this.fire("item-selected", n);
     },
@@ -733,7 +737,15 @@ Custom property | Description | Default
           return 0;
         }
       }));
+      this._udpateFilteredItems();
+    },
+
+    /**
+     * `_udpateFilteredItems` permit to update the list of filtered items.
+     */
+    _udpateFilteredItems: function () {
       this._setFilteredItems(this.displayListOnFocus && !this.value ? this.items : this._getFilteredItems());
+      this._hideResults = !((this.value || this.displayListOnFocus) && this.focused);
       this.fire("items-change", {"items": this.items, "filtered_items": this.filteredItems});
     },
 
@@ -747,15 +759,17 @@ Custom property | Description | Default
      * The `_onFocusOut` is used when the user leaves the focus.
      */
     _onFocusOut: function (e) {
-      if (e.relatedTarget && e.relatedTarget.nodeName === this._itemTemplate.content.firstElementChild.nodeName) {
-        e.preventDefault();
-        return false;
-      }
-      if (this.value === "" || this.value === null) {
-        this.selectedItem = null;
-      }
+      e.preventDefault();
 
-      this.cancelTyping();
+      this.async(function () {
+        if (this.value === "" || this.value === null) {
+          this.selectedItem = null;
+        }
+
+        this.cancelTyping();
+      }, 100);
+
+      return false;
     },
 
     _onFocusedChanged: function (n, o) {
