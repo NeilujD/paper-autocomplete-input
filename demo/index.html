@@ -47,5 +47,47 @@
         </template>
       </demo-snippet>
     </div>
+
+    <div class="vertical-section-container centered">
+      <h3>No autoc url paper-autocomplete-input demo</h3>
+      <demo-snippet>
+        <template>
+          <dom-bind id="demo">
+            <template>
+              <paper-autocomplete-input
+                  id="ironFormElementDemo"
+                  label="Autocompletion test"
+                  items="[[items]]"
+                  autoc-fields='["autoc_field"]'
+                  name="test"
+                  required
+                  error-message="This field is required !">
+                <template>
+                  <paper-item>
+                    <paper-item-body two-line>
+                      <div>[[item.autoc_field]] - [[item.name]]</div>
+                      <div secondary>This is the number [[index]]</div>
+                    </paper-item-body>
+                    <iron-icon icon="perm-identity"></iron-icon>
+                  </paper-item>
+                </template>
+              </paper-autocomplete-input>
+            </template>
+          </dom-bind>
+          <script>
+            var autobind = document.querySelector('#demo');
+
+            autobind.items = [
+              {"autoc_field": "Jean-Paul", "name": "Choupa"},
+              {"autoc_field": "Patrick", "name": "Test"},
+              {"autoc_field": "Lolo", "name": "Papier"},
+              {"autoc_field": "Abricot", "name": "Patate"},
+              {"autoc_field": "Arlequin", "name": "Carotte"},
+              {"autoc_field": "Attention", "name": "Toto"}
+            ];
+          </script>
+        </template>
+      </demo-snippet>
+    </div>
   </body>
 </html>
