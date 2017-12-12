@@ -573,11 +573,10 @@ Custom property | Description | Default
 
     ready: function () {
       var template = Polymer.dom(this).querySelector('template:not(#defaultTemplate)');
-      var dataHost = this.parentNode;
+      var dataHost = this;
 
       if (!template) {
           template = this.$.defaultTemplate;
-          dataHost = this;
       }
 
       this.set("_itemTemplate", template);
