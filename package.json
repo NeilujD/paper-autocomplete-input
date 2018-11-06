@@ -1,5 +1,12 @@
 {
+  "name": "@polymer/paper-autocomplete-input",
+  "version": "3.0.0",
+  "authors": [
+    "Julien Collard <julien.collard14@gmail.com> (http://neilujd.com)",
+    "bastiion <graviola@posteo.de>"
+  ],
   "description": "paper-input with personalizable autocompletion feature",
+  "license": "Apache-2.0",
   "keywords": [
     "web-components",
     "polymer",
@@ -12,8 +19,6 @@
     "type": "git",
     "url": "git://github.com/neilujd/paper-autocomplete-input.git"
   },
-  "name": "@polymer/paper-autocomplete-input",
-  "version": "3.0.0",
   "resolutions": {
     "inherits": "2.0.3",
     "samsam": "1.1.3",
@@ -22,8 +27,6 @@
     "@webcomponents/webcomponentsjs": "2.0.0-beta.2"
   },
   "main": "paper-autocomplete-input.js",
-  "author": "Julien Collard <julien.collard14@gmail.com> (http://neilujd.com)",
-  "license": "Apache-2.0",
   "dependencies": {
     "@polymer/iron-ajax": "^3.0.0-pre.18",
     "@polymer/iron-form-element-behavior": "^3.0.0-pre.18",
