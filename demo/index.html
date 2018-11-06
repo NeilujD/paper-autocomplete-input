@@ -6,39 +6,52 @@
 
     <title>paper-autocomplete-input demo</title>
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
 
-    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../paper-autocomplete-input.html">
+    <script type="module" src="../node_modules/@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
+    <script type="module" src="../node_modules/@polymer/iron-demo-helpers/demo-snippet.js"></script>
 
-    <link rel="import" href="../../paper-item/paper-item.html">
-    <link rel="import" href="../../paper-item/paper-item-body.html">
-    <link rel="import" href="../../iron-icon/iron-icon.html">
-    <link rel="import" href="../../iron-icons/iron-icons.html">
+    <script type="module" src="../paper-autocomplete-input.js"></script>
 
 
-    <style is="custom-style" include="demo-pages-shared-styles">
-    </style>
+
+    <!-- FIXME(polymer-modulizer):
+        These imperative modules that innerHTML your HTML are
+        a hacky way to be sure that any mixins in included style
+        modules are ready before any elements that reference them are
+        instantiated, otherwise the CSS @apply mixin polyfill won't be
+        able to expand the underlying CSS custom properties.
+        See: https://github.com/Polymer/polymer-modulizer/issues/154
+        -->
+    <script type="module">
+      import '@polymer/paper-item/paper-item';
+      import '@polymer/paper-item/paper-item-body';
+      import '@polymer/iron-icon/iron-icon'
+      import '@polymer/iron-icons/iron-icons'
+
+const $_documentContainer = document.createElement('template');
+$_documentContainer.setAttribute('style', 'display: none;');
+
+$_documentContainer.innerHTML = `<style is="custom-style" include="demo-pages-shared-styles">
+    </style>`;
+
+document.head.appendChild($_documentContainer.content);
+</script>
   </head>
   <body>
-    <div class="vertical-section-container centered">
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<div class="vertical-section-container centered">
       <h3>Basic paper-autocomplete-input demo</h3>
       <demo-snippet>
         <template>
-          <paper-autocomplete-input
-              id="ironFormElementDemo"
-              autoc-url="data.json"
-              label="Autocompletion test"
-              autoc-fields='["autoc_field"]'
-              name="test"
-              required
-              error-message="This field is required !">
+          <paper-autocomplete-input id="ironFormElementDemo" autoc-url="data.json" label="Autocompletion test" autoc-fields="[&quot;autoc_field&quot;]" name="test" required="" error-message="This field is required !">
             <template>
               <paper-item>
-                <paper-item-body two-line>
+                <paper-item-body two-line="">
                   <div>[[item.autoc_field]] - [[item.name]]</div>
-                  <div secondary>This is the number [[index]]</div>
+                  <div secondary="">This is the number [[index]]</div>
                 </paper-item-body>
                 <iron-icon icon="perm-identity"></iron-icon>
               </paper-item>
@@ -46,27 +59,30 @@
           </paper-autocomplete-input>
         </template>
       </demo-snippet>
-    </div>
+    </div>`;
 
-    <div class="vertical-section-container centered">
+document.body.appendChild($_documentContainer.content);
+</script>
+
+    <script type="module">
+      import '@polymer/paper-item/paper-item';
+      import '@polymer/paper-item/paper-item-body';
+      import '@polymer/iron-icon/iron-icon'
+      import '@polymer/iron-icons/iron-icons'
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<div class="vertical-section-container centered">
       <h3>No autoc url paper-autocomplete-input demo</h3>
       <demo-snippet>
         <template>
           <dom-bind id="demo">
             <template>
-              <paper-autocomplete-input
-                  id="ironFormElementDemo"
-                  label="Autocompletion test"
-                  items="[[items]]"
-                  autoc-fields='["autoc_field"]'
-                  name="test"
-                  required
-                  error-message="This field is required !">
+              <paper-autocomplete-input id="ironFormElementDemo" label="Autocompletion test" items="[[items]]" autoc-fields="[&quot;autoc_field&quot;]" name="test" required="" error-message="This field is required !">
                 <template>
                   <paper-item>
-                    <paper-item-body two-line>
+                    <paper-item-body two-line="">
                       <div>[[item.autoc_field]] - [[item.name]]</div>
-                      <div secondary>This is the number [[index]]</div>
+                      <div secondary="">This is the number [[index]]</div>
                     </paper-item-body>
                     <iron-icon icon="perm-identity"></iron-icon>
                   </paper-item>
@@ -85,9 +101,10 @@
               {"autoc_field": "Arlequin", "name": "Carotte"},
               {"autoc_field": "Attention", "name": "Toto"}
             ];
-          </script>
+          ` + '<'  + `/script>
         </template>
       </demo-snippet>
-    </div>
-  </body>
-</html>
+    </div>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
