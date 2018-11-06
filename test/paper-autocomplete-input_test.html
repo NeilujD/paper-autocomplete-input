@@ -9,7 +9,7 @@
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
 
-    <link rel="import" href="../paper-autocomplete-input.html">
+    <script type="module" src="../paper-autocomplete-input.js"></script>
   </head>
   <body>
     <test-fixture id="basic">
@@ -18,13 +18,14 @@
       </template>
     </test-fixture>
 
-    <script>
-      suite('paper-autocomplete-input', function() {
-        test('instantiating the element works', function() {
-          var element = fixture('basic');
-          assert.equal(element.is, 'paper-autocomplete-input');
-        });
-      });
-    </script>
+    <script type="module">
+import '../paper-autocomplete-input.js';
+suite('paper-autocomplete-input', function() {
+  test('instantiating the element works', function() {
+    var element = fixture('basic');
+    assert.equal(element.is, 'paper-autocomplete-input');
+  });
+});
+</script>
   </body>
 </html>
