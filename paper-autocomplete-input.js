@@ -119,7 +119,7 @@ export class PaperAutocompleteInput extends mixinBehaviors([IronFormElementBehav
         min-width: 100%;
         margin-top: var(--paper-autocomplete-input-list-margin-top, 2px);
         background-color: white;
-        z-index: 10;
+        z-index: 1000;
       }
       #itemListDiv div {
         width: 100%;
@@ -765,7 +765,9 @@ export class PaperAutocompleteInput extends mixinBehaviors([IronFormElementBehav
    * The `cancelTyping` method permit to cancel the current typing action.
    */
   cancelTyping() {
-    this.value = this.getItemString(this.selectedItem);
+    const newVal = this.getItemString(this.selectedItem);
+    if(newVal && newVal.length > 0)
+      this.value = newVal;
     this._hideResults = true;
     this.fire("typing-cancelled", this.value);
   }
