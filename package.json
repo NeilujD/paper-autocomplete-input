@@ -1,0 +1,41 @@
+{
+  "name": "@polymer/paper-autocomplete-input",
+  "version": "3.0.1",
+  "authors": [
+    "Julien Collard <julien.collard14@gmail.com> (http://neilujd.com)",
+    "bastiion <graviola@posteo.de>"
+  ],
+  "description": "paper-input with personalizable autocompletion feature",
+  "license": "Apache-2.0",
+  "keywords": [
+    "web-components",
+    "polymer",
+    "paper-input",
+    "autocompletion",
+    "cirruseo",
+    "polymer2"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/neilujd/paper-autocomplete-input.git"
+  },
+  "main": "paper-autocomplete-input.js",
+  "dependencies": {
+    "@polymer/iron-ajax": "^3.0.1",
+    "@polymer/iron-form-element-behavior": "^3.0.1",
+    "@polymer/iron-input": "^3.0.1",
+    "@polymer/paper-input": "^3.0.1",
+    "@polymer/paper-item": "^3.0.1",
+    "@polymer/paper-material": "^3.0.1",
+    "@polymer/paper-progress": "^3.0.1",
+    "@polymer/polymer": "^3.1.0"
+  },
+  "devDependencies": {
+    "@polymer/iron-component-page": "^4.0.1",
+    "@polymer/iron-demo-helpers": "^3.0.2",
+    "@polymer/iron-icon": "^3.0.1",
+    "@polymer/iron-icons": "^3.0.1",
+    "@webcomponents/webcomponentsjs": "^2.2.4",
+    "wct-browser-legacy": "^1.0.2"
+  }
+}
