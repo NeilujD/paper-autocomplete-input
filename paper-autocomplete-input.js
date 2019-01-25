@@ -151,7 +151,7 @@ export class PaperAutocompleteInput extends mixinBehaviors([IronFormElementBehav
       <div>
         <paper-material elevation="3" hidden="[[ _hideResults ]]">
           <template id="itemListTemplate" is="dom-repeat" items="[[ filteredItems ]]">
-            <paper-autocomplete-item on-tap="_onItemTap" class\$="[[ _isKeySelectedItemClass(item, _keySelectedItem) ]]" template-class="[[_itemTemplateClass]]" item="[[item]]" index="[[index]]"></paper-autocomplete-item>
+            <paper-autocomplete-item on-mousedown="_onItemTap" class\$="[[ _isKeySelectedItemClass(item, _keySelectedItem) ]]" template-class="[[_itemTemplateClass]]" item="[[item]]" index="[[index]]"></paper-autocomplete-item>
           </template>
         </paper-material>
       </div>
@@ -731,7 +731,7 @@ export class PaperAutocompleteInput extends mixinBehaviors([IronFormElementBehav
       }
 
       this.cancelTyping();
-    }, 100);
+    }, 500);
 
     return false;
   }
