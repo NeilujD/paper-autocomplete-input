@@ -1,6 +1,6 @@
 {
   "name": "@polymer/paper-autocomplete-input",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "authors": [
     "Julien Collard <julien.collard14@gmail.com> (http://neilujd.com)",
     "bastiion <graviola@posteo.de>"
@@ -19,30 +19,23 @@
     "type": "git",
     "url": "git://github.com/neilujd/paper-autocomplete-input.git"
   },
-  "resolutions": {
-    "inherits": "2.0.3",
-    "samsam": "1.1.3",
-    "supports-color": "3.1.2",
-    "type-detect": "1.0.0",
-    "@webcomponents/webcomponentsjs": "2.0.0-beta.2"
-  },
   "main": "paper-autocomplete-input.js",
   "dependencies": {
-    "@polymer/iron-ajax": "^3.0.0-pre.18",
-    "@polymer/iron-form-element-behavior": "^3.0.0-pre.18",
-    "@polymer/iron-input": "^3.0.0-pre.18",
-    "@polymer/paper-input": "^3.0.0-pre.18",
-    "@polymer/paper-item": "^3.0.0-pre.18",
-    "@polymer/paper-material": "^3.0.0-pre.18",
-    "@polymer/paper-progress": "^3.0.0-pre.18",
-    "@polymer/polymer": "^3.0.0"
+    "@polymer/iron-ajax": "^3.0.1",
+    "@polymer/iron-form-element-behavior": "^3.0.1",
+    "@polymer/iron-input": "^3.0.1",
+    "@polymer/paper-input": "^3.0.1",
+    "@polymer/paper-item": "^3.0.1",
+    "@polymer/paper-material": "^3.0.1",
+    "@polymer/paper-progress": "^3.0.1",
+    "@polymer/polymer": "^3.1.0"
   },
   "devDependencies": {
-    "@polymer/iron-component-page": "^3.0.0-pre.18",
-    "@polymer/iron-demo-helpers": "^3.0.0-pre.18",
-    "@polymer/iron-icon": "^3.0.0-pre.18",
-    "@polymer/iron-icons": "^3.0.0-pre.18",
-    "@webcomponents/webcomponentsjs": "^2.0.0",
-    "wct-browser-legacy": "^0.0.1-pre.11"
+    "@polymer/iron-component-page": "^4.0.1",
+    "@polymer/iron-demo-helpers": "^3.0.2",
+    "@polymer/iron-icon": "^3.0.1",
+    "@polymer/iron-icons": "^3.0.1",
+    "@webcomponents/webcomponentsjs": "^2.2.4",
+    "wct-browser-legacy": "^1.0.2"
   }
 }
